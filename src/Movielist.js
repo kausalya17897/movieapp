@@ -1,13 +1,20 @@
 import * as React from 'react';
-import {Msg} from './Msg.js';
+import { Movie } from './Movie';
 
-export function Movielist({movies}) {
+
+
+export function Movielist({ movies }) {
+    console.log("c",movies);
   return (
-    <div className="movielist">
-      {movies.map(({ name, poster, rating, summary }) => (
-        <Msg
-          name={name} poster={poster} rating={rating} summary={summary} />
+    
+    <div className="movie-list">
+        
+      {movies.map(({ name, poster, rating, summary }) =>(
+        <Movie
+          name={name}
+          poster={poster}
+          rating={rating}
+          summary={summary} />
       ))}
-    </div>
-  );
+    </div>);
 }
