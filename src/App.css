@@ -1,38 +1,125 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.addmovie{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.title{
+  color:black;
+  background-color: brown;
+}
+.movielist{
+  display: flex;
+  gap:20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-left:20px;
+  margin-right:20px;
+}
+
+.container{
+
+  display: inline-block;
+  overflow: hidden; 
+  width:280px;
+  padding-top: 20px;
+  margin-top:30px;
+  transition: all 10s;
   }
+  .container:hover{
+  
+    transition:all 0.3s;
+    transform:scale(1.05);
+   
+    
+  }
+
+.content{
+  
+  width:280px; 
+}
+.user-pic{
+  margin-top:0px;
+  height:340px;
+  width:280px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  overflow: hidden;
+  
+}
+.user-name{
+  margin: 0;
+display: flex;
+justify-content: space-between;
+}
+.user-name,.user-rating{
+  font-size: 16px;
+  font-style:italic;
+
+  font-family:'Roboto', sans-serif ;
+  margin-top:0;
+  margin-bottom: 0;
+}
+.big{
+  font-family: 'Fruktur', cursive;
+  font-weight: bolder;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.total{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.big{
+  font-weight: bolder;
+  margin:0;
+  margin-right: 2px;
+}
+.heading{
+  align-items: center;
+  text-align: center;
+}
+.user-summary{
+  width:280px;
+  text-align: left;
+}
+.livecounter{
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 2px;
+  justify-content: left;
+}
+.livebutton{
+  height:30px;
+  width:50px;
+}
+.hide{
+  background-color: rgb(154, 181, 209);
+  display: flex;
+  justify-content: flex-start;
+}
+.addmovie{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap:1rem;
+  padding:10px;
+  border:1px solid black;
+margin-left:540px;
+margin-right:540px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.add-container{
+  display: flex;
+  flex-direction: column;
+  
+  margin-left: 440px;
+  margin-right:440px;
+  gap:1rem;
+  border: 1px solid black;
+  padding: 10px;
+  
 }
