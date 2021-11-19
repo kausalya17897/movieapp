@@ -2,6 +2,9 @@ import './App.css';
 import * as React from 'react';
 import { Movielist } from './Movielist';
 import { useState } from 'react';
+import{Link,Switch,Route} from "react-router-dom";
+import { AddMovie } from './AddMovie';
+
 
 export default function App() {
   // eslint-disable-next-line
@@ -52,48 +55,32 @@ summary:"Finding Nemo is a 2003 American computer-animated adventure film produc
 ]
 
 //const name=["kausi","madhu","prisci"];
-const [name,setName]=useState("");
-const [poster,setPoster]=useState("");
-const [rating,setRating]=useState("");
-const [summary,setSummary]=useState("");
 
 const [movies,setMovies]=useState(initialmovies);
-const addmovie=()=>{
-  console.log("adding.....",name,rating,poster,summary);
-  const newmovie={
-    name,poster,rating,summary
-  }
-  console.log("a",movies)
 
-  console.log("b",newmovie)
-  setMovies([...movies,newmovie]);
-}
 return(
 <div className="App">
   <h3 className="apptitle">Movie list</h3>
-<div className="addmoviedata">
-      <input 
-      value={name} type="text"
-      onChange={(event)=>setName(event.target.value)}
-      placeholder="enter movie name"></input>
-      <input 
-       value={poster} 
-       onChange={(event)=>setPoster(event.target.value)}
-       placeholder="enter movie url"></input>
-      <input
-       value={rating}  onChange={(event)=>setRating(event.target.value)}
-        placeholder="enter rating"></input>
-      <input
-       value={summary}  onChange={(event)=>setSummary(event.target.value)}
-        placeholder="enter movie summary"></input>
-      <button onClick={addmovie}>Add movie</button>
-    </div>
- {/* <Addmovie movies={movies}/>*/}
-<Movielist movies={movies}/>
+  <nav>
+  <Link to="/">Home</Link>
+<Link to="/Movie">Movies</Link>
+<Link to="/Addmovie">Add movies</Link>
+</nav>
+<Switch>
+  <Route path="/Movie">
+  <Movielist movies={movies}/>
+  </Route>
+  <Route path="/AddMovie">
+  <AddMovie movies={movies} setMovies={setMovies}/>
+  </Route>
+  <Route path="/">
+    <Welcome/>
+  </Route>
+  </Switch>
+
 </div>
 )}
-
-
-
-
- 
+function Welcome(){
+  return<h3 className="welcome">Welcome to Entertainment World🌍</h3>
+    
+}
