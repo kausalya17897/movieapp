@@ -2,27 +2,31 @@ import * as React from 'react';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
+import { useParams } from "react-router-dom";
 //higher order component
-export function AddMovie({ movies, setMovies }) {
-  const [name, setName] = useState("");
-  const [poster, setPoster] = useState("");
-  const [rating, setRating] = useState("");
-  const [summary, setSummary] = useState("");
-  const [trailer, setTrailer] = useState("");
+export function Editmovie({ movies, setMovies }) {
+  const { id } = useParams();
+  const movie = movies[id];
+  console.log(id,movie);
+  const [name, setName] = useState(movie.name);
+  const [poster, setPoster] = useState(movie.poster);
+  const [rating, setRating] = useState(movie.rating);
+  const [summary, setSummary] = useState(movie.summary);
+  const [trailer, setTrailer] = useState(movie.trailer);
 
-  const addmovie = () => {
-    console.log("adding.....", name, rating, poster, summary,trailer);
-    const newmovie = {
+  const editmovie = () => {
+    console.log("updating.....", name, rating, poster, summary,trailer);
+    
+    const updatedmovie = {
       name, poster, rating, summary,trailer
     };
-    console.log("a", movies);
-
-    console.log("b", newmovie);
-    setMovies([...movies, newmovie]);
-    console.log("setmoviesadd",setMovies)
+const copymovielist=[...movies];
+copymovielist[id]=updatedmovie;
+    console.log("b", updatedmovie);
+    setMovies(copymovielist);
+    console.log("updatedmovies",setMovies)
   };
-  //copied the movielist and add new movie
+  //replace the updatedmovie
   return (
     <div className="addmoviedata">
       <TextField id="standard-basic" variant="standard" value={name} type="text"
@@ -38,7 +42,7 @@ export function AddMovie({ movies, setMovies }) {
         placeholder="enter movie summary" />
         <TextField id="standard-basic" variant="standard" value={trailer} onChange={(event) => setTrailer(event.target.value)}
         placeholder="enter movie trailer" />
-      <Button variant="outlined" onClick={addmovie}>Add movie</Button>
+      <Button variant="outlined" onClick={editmovie}>update movie</Button>
 
     </div>
   );
