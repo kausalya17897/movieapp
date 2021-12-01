@@ -2,7 +2,9 @@ import * as React from 'react';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 //higher order component
 export function Editmovie({ movies, setMovies }) {
   const { id } = useParams();
@@ -13,7 +15,7 @@ export function Editmovie({ movies, setMovies }) {
   const [rating, setRating] = useState(movie.rating);
   const [summary, setSummary] = useState(movie.summary);
   const [trailer, setTrailer] = useState(movie.trailer);
-
+const history=useHistory();
   const editmovie = () => {
     console.log("updating.....", name, rating, poster, summary,trailer);
     
@@ -24,6 +26,7 @@ const copymovielist=[...movies];
 copymovielist[id]=updatedmovie;
     console.log("b", updatedmovie);
     setMovies(copymovielist);
+    history.push("/movies");
     console.log("updatedmovies",setMovies)
   };
   //replace the updatedmovie
@@ -43,7 +46,9 @@ copymovielist[id]=updatedmovie;
         <TextField id="standard-basic" variant="standard" value={trailer} onChange={(event) => setTrailer(event.target.value)}
         placeholder="enter movie trailer" />
       <Button variant="outlined" onClick={editmovie}>update movie</Button>
-
+<Button onClick={()=>history.goBack("/movies")}
+variant="outlined"
+startIcon={<ArrowBackIcon/>} >back</Button>
     </div>
   );
-}
+} 

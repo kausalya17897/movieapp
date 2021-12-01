@@ -10,16 +10,16 @@ export function Counter() {
   return (
     <div className="counter-container">
       
-      <IconButton aria-label="delete"
+      <IconButton aria-label="like-dislike"
       className="like-dislike" 
       color="primary"
       onClick={() => setLike(like + 1)}>
-        <Badge badgeContent={like} color="primary">
+      <Badge badgeContent={like} color="primary">
   👍
 </Badge>
   </IconButton>
   
-  <IconButton aria-label="delete"
+  <IconButton aria-label="like-dislike"
       className="like-dislike" 
       color="error"
       onClick={() => setdisLike(dislike + 1)}>

@@ -83,7 +83,6 @@ return(
 <Link to="/movies">Movies</Link>
 <Link to="/Addmovie">Add movies</Link>
 </nav>
-
 <Switch>
 <Route exact path="/">
     <Welcome/>
