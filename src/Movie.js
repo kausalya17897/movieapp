@@ -31,7 +31,8 @@ export function Movie({ name, poster, rating, summary,id,deletebutton,editbutton
       className="moreinfo" 
       color="primary"
       onClick={() =>{console.log(id);
-      history.push("/movies/"+id); }}>
+      history.push("/movies/"+id);
+       }}>
       
       <InfoIcon/>
       </IconButton>

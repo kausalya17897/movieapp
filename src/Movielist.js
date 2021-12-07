@@ -3,11 +3,28 @@ import { Movie } from './Movie';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { useHistory } from 'react-router';
+import { useHistory} from 'react-router';
+import {useEffect ,useState} from 'react';
 
 
+export function Movielist() {
+  const[movies,setMovies]=useState([]);
 
-export function Movielist({ movies ,setMovies}) {
+  const getMovies=()=>{
+    fetch("https://61681515ba841a001727c589.mockapi.io/movie")
+    .then((data)=>data.json())
+    .then((mvs)=>setMovies(mvs));
+  };
+useEffect(getMovies,[]);
+//called 1time because of empty dependency
+const deleteMovie=(id)=>{
+  fetch(`https://61681515ba841a001727c589.mockapi.io/movie/${id}`,{
+method:"DELETE",
+  }).then(()=>getMovies());
+  //.getmovie to refresh
+};
+
+  
   const history=useHistory();
   console.log("setmovies",setMovies)
     console.log("c",movies);
@@ -15,25 +32,18 @@ export function Movielist({ movies ,setMovies}) {
     
     <div className="movie-list">
         
-      {movies.map(({ name, poster, rating, summary },index) =>(
+      {movies.map(({ name, poster, rating, summary,id },index) =>(
         <Movie
           name={name}
           poster={poster}
           rating={rating}
           summary={summary}
-          id={index} 
+          id={id} 
           //we are printing movelist  which doesnot match the same index and setting in setMovies
           deletebutton={
           
-          <IconButton onClick={()=>{
-            console.log("deleting...",index);
-            const deleteIdex=index;
-            const remainingmovies=movies.filter(
-              (a,idx)=>idx!==deleteIdex);
-            console.log("remaining",remainingmovies);
-            console.log(setMovies)
-            setMovies(remainingmovies);
-          }}
+          <IconButton onClick={()=>deleteMovie(id)}
+          
           className="deletebutton"
           color="error"
           aria-label="delete">
@@ -41,14 +51,18 @@ export function Movielist({ movies ,setMovies}) {
           </IconButton>}
 
           editbutton={
-           <IconButton onClick={()=>history.push("/movies/edit/"+index) }
+           <IconButton onClick={()=>history.push("/movies/edit/"+id) }
            className="editbutton"
            style={{marginLeft:"auto"}}
            color="primary"
            aria-label="edit">
            <EditIcon/>
-           </IconButton>}/>
+           </IconButton>
+           }/>
           
       ))} 
-    </div>);
+    </div>
+    );
 }
+
+

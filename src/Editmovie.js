@@ -1,35 +1,51 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useParams } from "react-router-dom";
-import {useHistory} from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
+
 //higher order component
-export function Editmovie({ movies, setMovies }) {
+export function Editmovie() {
   const { id } = useParams();
-  const movie = movies[id];
-  console.log(id,movie);
+
+  //const movie = movies[id];
+  const[movie,setMovie]=useState(null);
+useEffect(()=>{
+  fetch(`https://61681515ba841a001727c589.mockapi.io/movie/${id}`,{
+  method:"GET",
+})
+  .then((data)=>data.json())
+  .then((mvs)=>setMovie(mvs));
+},[id]);
+console.log("cgc",movie)
+  //replace the updatedmovie
+  //only show movie when dataavailable
+  return movie ? <UpdatedMovie movie={movie} />:"";
+}
+function UpdatedMovie({movie}){
+  console.log("bnb",movie)
+  
   const [name, setName] = useState(movie.name);
   const [poster, setPoster] = useState(movie.poster);
   const [rating, setRating] = useState(movie.rating);
   const [summary, setSummary] = useState(movie.summary);
   const [trailer, setTrailer] = useState(movie.trailer);
 const history=useHistory();
-  const editmovie = () => {
-    console.log("updating.....", name, rating, poster, summary,trailer);
-    
-    const updatedmovie = {
-      name, poster, rating, summary,trailer
-    };
-const copymovielist=[...movies];
-copymovielist[id]=updatedmovie;
-    console.log("b", updatedmovie);
-    setMovies(copymovielist);
-    history.push("/movies");
-    console.log("updatedmovies",setMovies)
+const editmovie = () => {
+const updatedMovie = {
+   name, poster, rating, summary,trailer,
   };
-  //replace the updatedmovie
+
+  fetch(`https://61681515ba841a001727c589.mockapi.io/movie/${movie.id}`,{
+    method:"PUT",
+    body:JSON.stringify(updatedMovie),
+    headers:{
+      "Content-Type":"application/json",
+
+    },
+  }).then(()=>history.push("/movies"));
+};
   return (
     <div className="addmoviedata">
       <TextField id="standard-basic" variant="standard" value={name} type="text"
@@ -51,4 +67,4 @@ variant="outlined"
 startIcon={<ArrowBackIcon/>} >back</Button>
     </div>
   );
-} 
+}

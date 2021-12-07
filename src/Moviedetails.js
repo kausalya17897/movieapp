@@ -1,9 +1,20 @@
 import * as React from 'react';
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
+import { useEffect,useState } from 'react';
 
 export function Moviedetails({ movies }) {
+  const history=useHistory();
   const { id } = useParams();
-  const movie = movies[id];
+  
+  
+  const[movie,setMovie]=useState({});
+useEffect(()=>{
+  fetch(`https://61681515ba841a001727c589.mockapi.io/movie/${id}`,{
+    method:"GET",
+  })
+  .then((data)=>data.json())
+  .then((mvs)=>setMovie(mvs))
+},[]);
   const styles = { color: movie.rating > 8 ? "green" : "red", fontWeight: "bold" };
   console.log(movie);
   // to extract content useParams is used 
